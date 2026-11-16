@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — FaceAuth</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">◉</span> FaceAuth</a>
+    <nav>
+      <span class="muted" id="who"></span>
+      <button class="btn btn-ghost" id="logout">Log out</button>
+    </nav>
+  </header>
+
+  <main>
+    <h1 id="greeting">Welcome</h1>
+    <p class="muted">You passed all three factors. Here's your account security overview.</p>
+
+    <section class="grid" style="margin-top:1.5rem">
+      <div class="card stat">
+        <span class="muted">Password</span>
+        <span class="value"><span class="badge ok">Active</span></span>
+        <span class="hint">BCrypt-hashed in the database</span>
+      </div>
+      <div class="card stat">
+        <span class="muted">Authenticator app</span>
+        <span class="value" id="totp-status">…</span>
+        <a href="/setup.html?redo=totp" class="hint">Link a new device</a>
+      </div>
+      <div class="card stat">
+        <span class="muted">Face recognition</span>
+        <span class="value" id="face-status">…</span>
+        <a href="/setup.html?redo=face" class="hint">Re-register face</a>
+      </div>
+      <div class="card stat">
+        <span class="muted">Member since</span>
+        <span class="value" id="since">…</span>
+        <span class="hint" id="email"></span>
+      </div>
+    </section>
+
+    <div class="card" style="margin-top:1.5rem">
+      <h3>Recent security activity</h3>
+      <p class="muted">Loaded as JSON from <code>/api/me/logins</code> (SQL table <code>login_audit</code>).</p>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>Time</th><th>Step</th><th>Result</th><th>Detail</th><th>IP</th></tr></thead>
+          <tbody id="history"><tr><td colspan="5" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

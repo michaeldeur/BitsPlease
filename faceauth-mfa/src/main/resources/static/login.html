@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in — FaceAuth</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">◉</span> FaceAuth</a>
+    <nav><a href="/register.html">Create account</a></nav>
+  </header>
+
+  <main class="narrow">
+    <div class="card">
+      <div class="steps" id="steps">
+        <div class="step active"><div class="bar"></div>Password</div>
+        <div class="step"><div class="bar"></div>Authenticator</div>
+        <div class="step"><div class="bar"></div>Face scan</div>
+      </div>
+
+      <div id="setup-done" class="msg success hidden">Setup complete! Log in with all three factors.</div>
+
+      <!-- Step 1: password -->
+      <form id="step-password">
+        <h2>Welcome back</h2>
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button class="btn btn-primary btn-block" type="submit">Continue</button>
+      </form>
+
+      <!-- Step 2: TOTP -->
+      <form id="step-totp" class="hidden">
+        <h2>Authenticator code</h2>
+        <p class="muted">Open your authenticator app and enter the 6-digit code for FaceAuth.</p>
+        <input id="code" name="code" class="code" inputmode="numeric" pattern="\d{6}" maxlength="6" autocomplete="one-time-code" required>
+        <button class="btn btn-primary btn-block" type="submit">Verify code</button>
+      </form>
+
+      <!-- Step 3: Face -->
+      <div id="step-face" class="hidden">
+        <h2>Face scan</h2>
+        <p class="muted">We'll check it's really you. Follow the prompts on screen.</p>
+        <div class="camera">
+          <video id="video" muted playsinline></video>
+          <canvas id="overlay"></canvas>
+          <div class="guide"></div>
+          <div class="overlay-text" id="prompt">Loading AI model…</div>
+        </div>
+        <button id="face-btn" class="btn btn-primary btn-block" disabled>Start face scan</button>
+      </div>
+
+      <div id="msg" class="msg hidden" role="alert"></div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@1.7.12/dist/face-api.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/face.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

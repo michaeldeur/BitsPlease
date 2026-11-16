@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create account — FaceAuth</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">◉</span> FaceAuth</a>
+    <nav><a href="/login.html">Log in</a></nav>
+  </header>
+
+  <main class="narrow">
+    <div class="card">
+      <h2>Create your account</h2>
+      <p class="muted">Next you'll link an authenticator app and register your face.</p>
+
+      <form id="register-form" novalidate>
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required minlength="3" maxlength="50">
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="new-password" required minlength="8">
+        <div class="hint">At least 8 characters.</div>
+
+        <label for="confirm">Confirm password</label>
+        <input id="confirm" name="confirm" type="password" autocomplete="new-password" required>
+
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+        <div id="msg" class="msg hidden" role="alert"></div>
+      </form>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script>
+    const form = document.getElementById('register-form');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideMessage(msg);
+      const username = form.username.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+
+      if (password !== form.confirm.value) return showMessage(msg, 'Passwords do not match.');
+      if (password.length < 8) return showMessage(msg, 'Password must be at least 8 characters.');
+
+      const btn = form.querySelector('button');
+      setBusy(btn, true, 'Creating…');
+      try {
+        const data = await api('/api/auth/register', { method: 'POST', body: { username, email, password } });
+        window.location.href = data.next;
+      } catch (err) {
+        showMessage(msg, err.message);
+        setBusy(btn, false);
+      }
+    });
+  </script>
+</body>
+</html>

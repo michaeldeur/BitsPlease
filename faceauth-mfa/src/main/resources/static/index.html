@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaceAuth — Multi-Factor Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark">◉</span> FaceAuth</a>
+    <nav>
+      <a href="/login.html">Log in</a>
+      <a class="btn btn-primary" href="/register.html">Create account</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Three factors. One secure login.</h1>
+      <p>FaceAuth protects every account with a password, a code from your authenticator app,
+         and AI facial recognition through your webcam.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/register.html">Get started</a>
+        <a class="btn btn-ghost" href="/login.html">I already have an account</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card factor">
+        <div class="icon">🔑</div>
+        <h3>Something you know</h3>
+        <p class="muted">Your password, stored only as a salted BCrypt hash in the SQL database.</p>
+      </div>
+      <div class="card factor">
+        <div class="icon">📱</div>
+        <h3>Something you have</h3>
+        <p class="muted">A 6-digit code from Google Authenticator, Microsoft Authenticator or Authy (TOTP, RFC 6238).</p>
+      </div>
+      <div class="card factor">
+        <div class="icon">🙂</div>
+        <h3>Something you are</h3>
+        <p class="muted">A webcam face scan. A pre-trained neural network turns your face into 128 numbers that are matched on the server.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>Group Project · Java · SQL · JSON · HTML · CSS · face-api.js</footer>
+</body>
+</html>
